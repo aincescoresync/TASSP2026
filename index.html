@@ -121,7 +121,7 @@
   .takeaway-item { background: var(--gray-bg); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: var(--radius); padding: 10px 13px; font-size: 13px; color: var(--gray-dark); line-height: 1.55; }
 
   @media (max-width: 768px) {
-    /* Header — compact single row, stays sticky */
+    /* Header */
     .header-top { padding: 0 16px; height: 52px; flex-direction: row; align-items: center; gap: 0; }
     .header-logo img { height: 36px; }
     .header-event { text-align: right; }
@@ -130,44 +130,52 @@
     .header-bar { top: 52px; }
     .nav-bar { top: 57px; padding: 0 8px; }
 
-    /* Layout — sidebar stacks above main, full width */
+    /* Collapsible sidebar */
     .layout { grid-template-columns: 1fr; }
-    aside { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); top: 0; }
+    aside { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); top: 0; display: none; }
+    aside.mobile-open { display: block; }
+    #mobileFilterBtn { display: flex; }
     main { padding: 16px; }
 
     /* Modal */
     .modal-stats { grid-template-columns: 1fr 1fr; }
 
-    /* Overview panel */
-    #panelOverview { padding: 16px !important; min-height: 0 !important; }
-    .ov-stats-row { gap: 10px; }
-    .ov-stat-card { min-width: calc(50% - 5px); padding: 12px 14px; }
+    /* Overview — kill all overflow at the root */
+    #panelOverview { padding: 16px !important; min-height: 0 !important; overflow-x: hidden; width: 100%; }
+    #panelOverview * { box-sizing: border-box; }
+
+    .ov-stats-row { gap: 8px; margin-bottom: 16px; }
+    .ov-stat-card { min-width: calc(50% - 4px); flex: 1 1 calc(50% - 4px); padding: 12px 14px; }
     .ov-stat-num { font-size: 22px; }
     .ov-stat-lbl { font-size: 11px; }
     .ov-stat-sub { font-size: 10px; }
 
-    /* Overview grid — single column, no overflow */
-    .ov-grid { grid-template-columns: 1fr; gap: 14px; }
-    .ov-col { gap: 14px; }
-    .ov-card { padding: 14px 16px; overflow: hidden; }
+    .ov-grid { grid-template-columns: 1fr; gap: 12px; }
+    .ov-col { gap: 12px; }
+    .ov-card { padding: 14px; overflow: hidden; width: 100%; }
 
-    /* Chart bars — constrain to screen width */
-    .ov-chart-bars { width: 100%; }
+    /* Chart bars — override fixed widths */
     .ov-bar-row { gap: 6px; }
-    .ov-bar-label { min-width: 60px; width: auto; font-size: 11px; flex-shrink: 0; }
-    .ov-bar-pct { font-size: 11px; width: auto; white-space: nowrap; flex-shrink: 0; }
+    .ov-bar-label { width: auto !important; min-width: 50px; font-size: 11px; }
+    .ov-bar-track { flex: 1; min-width: 0; }
+    .ov-bar-pct { width: auto !important; font-size: 10px; }
 
-    /* Overview session lists */
-    .ov-session-row { gap: 8px; padding: 10px 0; }
-    .ov-session-name { font-size: 12px; }
+    /* Standards rows */
+    .ov-std-row { flex-wrap: wrap; gap: 4px; padding: 8px; }
+    .ov-std-badge { font-size: 12px; }
+
+    /* Session lists — fix nowrap causing overflow */
+    .ov-session-name { white-space: normal !important; word-break: break-word; font-size: 12px; }
     .ov-session-meta { font-size: 10px; }
-    .ov-session-rank { font-size: 18px; min-width: 28px; }
-
-    /* Standards list */
-    .ov-std-row { flex-wrap: wrap; gap: 4px; }
-    .ov-std-bar-wrap { width: 100%; margin-top: 4px; }
+    .ov-session-rank { min-width: 28px; font-size: 16px; }
+    .ov-session-row { padding: 8px; gap: 8px; }
   }
-  /* OVERVIEW DASHBOARD */
+  /* Mobile filter button — desktop: always hidden; mobile: hidden on overview */
+  #mobileFilterBtn { display: none; }
+  @media (max-width: 768px) {
+    #mobileFilterBtn { display: flex; }
+    #mobileFilterBtn.hide-on-mobile { display: none; }
+  }
   .ov-stats-row { display: flex; gap: 14px; margin-bottom: 24px; flex-wrap: wrap; }
   .ov-stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 22px; flex: 1; min-width: 140px; }
   .ov-stat-hero { border-top: 3px solid var(--red); }
@@ -260,6 +268,11 @@
     Responses
   </button>
 </div>
+
+<button id="mobileFilterBtn" class="hide-on-mobile" onclick="toggleMobileFilters()" style="width:100%;padding:10px 16px;background:var(--white);border:none;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;font-family:inherit;letter-spacing:.06em;text-transform:uppercase;color:var(--charcoal);cursor:pointer;align-items:center;justify-content:center;gap:8px;position:sticky;top:101px;z-index:90;">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+  <span id="mobileFilterLabel">Show Filters</span>
+</button>
 
 <div class="layout" id="panelSessions" style="display:none;">
   <aside>
@@ -802,13 +815,30 @@ document.addEventListener('click',function(e){
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
 function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
 
+function toggleMobileFilters(){
+  var aside = null;
+  ['panelSessions','panelResponses'].forEach(function(id){
+    var p = document.getElementById(id);
+    if(p && p.style.display !== 'none') aside = p.querySelector('aside');
+  });
+  if(!aside) return;
+  var open = aside.classList.toggle('mobile-open');
+  document.getElementById('mobileFilterLabel').textContent = open ? 'Hide Filters' : 'Show Filters';
+}
+
 function switchTab(tab){
   document.getElementById('panelOverview').style.display=tab==='overview'?'block':'none';
   document.getElementById('panelSessions').style.display=tab==='sessions'?'grid':'none';
   document.getElementById('panelResponses').style.display=tab==='responses'?'grid':'none';
+  document.getElementById('mobileFilterBtn').style.display='';
+  document.getElementById('mobileFilterBtn').className=tab==='overview'?'hide-on-mobile':'';
   document.getElementById('tabOverview').classList.toggle('active',tab==='overview');
   document.getElementById('tabSessions').classList.toggle('active',tab==='sessions');
   document.getElementById('tabResponses').classList.toggle('active',tab==='responses');
+  // close open sidebar on tab switch
+  document.querySelectorAll('aside.mobile-open').forEach(function(a){a.classList.remove('mobile-open');});
+  var lbl = document.getElementById('mobileFilterLabel');
+  if(lbl) lbl.textContent='Show Filters';
   if(tab==='sessions') renderGrid();
   if(tab==='overview') buildOverviewLists();
   if(tab==='responses') { buildRespSessionFilter(); renderResponses(); }
@@ -972,6 +1002,7 @@ function buildOverviewLists(){
 // Init — build overview first (it's visible), then pre-render sessions in background
 buildOverviewLists();
 renderGrid();
+switchTab('overview');
 </script>
 </body>
 </html>
