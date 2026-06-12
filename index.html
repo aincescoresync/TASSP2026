@@ -818,6 +818,7 @@ function toggleMobileFilters(){
   if(!aside) return;
   var open = aside.classList.toggle('mobile-open');
   document.getElementById('mobileFilterLabel').textContent = open ? 'Hide Filters' : 'Show Filters';
+  if (open) window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function switchTab(tab){
