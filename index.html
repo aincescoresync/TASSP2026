@@ -170,11 +170,12 @@
     .ov-session-rank { min-width: 28px; font-size: 16px; }
     .ov-session-row { padding: 8px; gap: 8px; }
   }
-  /* Mobile filter button — desktop: always hidden; mobile: hidden on overview */
   #mobileFilterBtn { display: none; }
   @media (max-width: 768px) {
-    #mobileFilterBtn { display: flex; }
+    #mobileFilterBtn { display: flex; position: fixed; bottom: 0; left: 0; right: 0; top: auto; width: 100%; z-index: 200; border-top: 1px solid var(--border); border-bottom: none; box-shadow: 0 -2px 8px rgba(0,0,0,.1); }
     #mobileFilterBtn.hide-on-mobile { display: none; }
+    /* Add padding to main content so fixed button doesn't cover last card */
+    .layout > main { padding-bottom: 60px; }
   }
   .ov-stats-row { display: flex; gap: 14px; margin-bottom: 24px; flex-wrap: wrap; }
   .ov-stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 22px; flex: 1; min-width: 140px; }
@@ -971,7 +972,7 @@ function buildOverviewLists(){
   qualified.sort(function(a,b){return (b.avgRating-a.avgRating)||(b.responseCount-a.responseCount);});
   var top=qualified.slice(0,7);
   var bottom=qualified.slice().sort(function(a,b){return a.avgRating-b.avgRating;}).slice(0,5);
-  var medals=['&#127945;','&#129352;','&#129353;','4','5','6','7'];
+  var medals=['1','2','3','4','5','6','7'];
   var mColors=['#D97706','#9E9E9E','#B45309','#231F20','#231F20','#231F20','#231F20'];
   var topEl=document.getElementById('topSessionsList');
   var botEl=document.getElementById('bottomSessionsList');
