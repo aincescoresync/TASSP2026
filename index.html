@@ -129,18 +129,43 @@
     .header-event .event-sub { font-size: 10px; margin-top: 1px; }
     .header-bar { top: 52px; }
     .nav-bar { top: 57px; padding: 0 8px; }
-    aside { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+
+    /* Layout — sidebar stacks above main, full width */
+    .layout { grid-template-columns: 1fr; }
+    aside { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); top: 0; }
     main { padding: 16px; }
+
+    /* Modal */
     .modal-stats { grid-template-columns: 1fr 1fr; }
-    /* Overview — single column, tighter padding */
-    #panelOverview { padding: 16px !important; }
+
+    /* Overview panel */
+    #panelOverview { padding: 16px !important; min-height: 0 !important; }
     .ov-stats-row { gap: 10px; }
-    .ov-stat-card { min-width: calc(50% - 5px); padding: 14px 16px; }
-    .ov-stat-num { font-size: 24px; }
+    .ov-stat-card { min-width: calc(50% - 5px); padding: 12px 14px; }
+    .ov-stat-num { font-size: 22px; }
+    .ov-stat-lbl { font-size: 11px; }
+    .ov-stat-sub { font-size: 10px; }
+
+    /* Overview grid — single column, no overflow */
     .ov-grid { grid-template-columns: 1fr; gap: 14px; }
-    .ov-card { padding: 16px; }
-    /* Fix sidebar sticky top offset for mobile header height */
-    aside { top: 0; }
+    .ov-col { gap: 14px; }
+    .ov-card { padding: 14px 16px; overflow: hidden; }
+
+    /* Chart bars — constrain to screen width */
+    .ov-chart-bars { width: 100%; }
+    .ov-bar-row { gap: 6px; }
+    .ov-bar-label { min-width: 60px; width: auto; font-size: 11px; flex-shrink: 0; }
+    .ov-bar-pct { font-size: 11px; width: auto; white-space: nowrap; flex-shrink: 0; }
+
+    /* Overview session lists */
+    .ov-session-row { gap: 8px; padding: 10px 0; }
+    .ov-session-name { font-size: 12px; }
+    .ov-session-meta { font-size: 10px; }
+    .ov-session-rank { font-size: 18px; min-width: 28px; }
+
+    /* Standards list */
+    .ov-std-row { flex-wrap: wrap; gap: 4px; }
+    .ov-std-bar-wrap { width: 100%; margin-top: 4px; }
   }
   /* OVERVIEW DASHBOARD */
   .ov-stats-row { display: flex; gap: 14px; margin-bottom: 24px; flex-wrap: wrap; }
