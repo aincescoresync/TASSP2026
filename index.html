@@ -134,7 +134,6 @@
     .layout { grid-template-columns: 1fr; }
     aside { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); top: 0; display: none; }
     aside.mobile-open { display: block; }
-    #mobileFilterBtn { display: flex; }
     main { padding: 16px; }
 
     /* Modal */
@@ -270,7 +269,7 @@
   </button>
 </div>
 
-<button id="mobileFilterBtn" class="hide-on-mobile" onclick="toggleMobileFilters()" style="width:100%;padding:10px 16px;background:var(--white);border:none;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;font-family:inherit;letter-spacing:.06em;text-transform:uppercase;color:var(--charcoal);cursor:pointer;align-items:center;justify-content:center;gap:8px;position:sticky;top:101px;z-index:90;">
+<button id="mobileFilterBtn" class="hide-on-mobile" onclick="toggleMobileFilters()" style="width:100%;padding:10px 16px;background:var(--white);border:none;font-size:12px;font-weight:700;font-family:inherit;letter-spacing:.06em;text-transform:uppercase;color:var(--charcoal);cursor:pointer;align-items:center;justify-content:center;gap:8px;">
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
   <span id="mobileFilterLabel">Show Filters</span>
 </button>
@@ -688,7 +687,7 @@ function cardHTML(s) {
       +'<div class="card-header"><div class="card-title">'+s.name+'</div>'
       +'<div class="card-right">'
       +'<div class="rating-badge" style="--badge-color:'+st.color+';--badge-bg:'+st.bg+';--badge-border:'+st.border+'">'
-      +'<span class="rating-num">'+s.avgRating.toFixed(1)+'</span><span class="rating-label">/ 5</span>'
+      +'<span class="rating-label">Average</span><span class="rating-num">'+s.avgRating.toFixed(1)+'</span><span class="rating-label">Stars</span>'
       +'</div></div></div>'
       +'<div class="stars">'+renderStars(s.avgRating)+'</div>'
       +'<div class="card-meta">'+multiTag+orgTag+stdTag+'</div>'
@@ -831,7 +830,6 @@ function switchTab(tab){
   document.getElementById('panelOverview').style.display=tab==='overview'?'block':'none';
   document.getElementById('panelSessions').style.display=tab==='sessions'?'grid':'none';
   document.getElementById('panelResponses').style.display=tab==='responses'?'grid':'none';
-  document.getElementById('mobileFilterBtn').style.display='';
   document.getElementById('mobileFilterBtn').className=tab==='overview'?'hide-on-mobile':'';
   document.getElementById('tabOverview').classList.toggle('active',tab==='overview');
   document.getElementById('tabSessions').classList.toggle('active',tab==='sessions');
@@ -973,7 +971,7 @@ function buildOverviewLists(){
   var top=qualified.slice(0,7);
   var bottom=qualified.slice().sort(function(a,b){return a.avgRating-b.avgRating;}).slice(0,5);
   var medals=['1','2','3','4','5','6','7'];
-  var mColors=['#D97706','#9E9E9E','#B45309','#231F20','#231F20','#231F20','#231F20'];
+  var mColors=['#231F20','#231F20','#231F20','#231F20','#231F20','#231F20','#231F20'];
   var topEl=document.getElementById('topSessionsList');
   var botEl=document.getElementById('bottomSessionsList');
   if(!topEl||!botEl) return;
