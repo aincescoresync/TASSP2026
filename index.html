@@ -171,10 +171,9 @@
   }
   #mobileFilterBtn { display: none; }
   @media (max-width: 768px) {
-    #mobileFilterBtn { display: flex; position: fixed; bottom: 0; left: 0; right: 0; top: auto; width: 100%; z-index: 200; border-top: 1px solid var(--border); border-bottom: none; box-shadow: 0 -2px 8px rgba(0,0,0,.1); }
+    #mobileFilterBtn { display: flex; position: sticky; top: 101px; z-index: 90; border-top: none; border-bottom: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,.06); }
     #mobileFilterBtn.hide-on-mobile { display: none; }
-    /* Add padding to main content so fixed button doesn't cover last card */
-    .layout > main { padding-bottom: 60px; }
+    .layout > main { padding-bottom: 16px; }
   }
   .ov-stats-row { display: flex; gap: 14px; margin-bottom: 24px; flex-wrap: wrap; }
   .ov-stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 22px; flex: 1; min-width: 140px; }
@@ -574,27 +573,6 @@
         <div class="ov-session-list" id="bottomSessionsList"></div>
       </div>
 
-      <!-- Coverage -->
-      <div class="ov-card">
-        <div class="ov-card-title">Survey Coverage</div>
-        <div class="ov-coverage-row">
-          <div class="ov-coverage-donut">
-            <svg viewBox="0 0 80 80" width="80" height="80">
-              <circle cx="40" cy="40" r="30" fill="none" stroke="#E0E0E0" stroke-width="12"/>
-              <circle cx="40" cy="40" r="30" fill="none" stroke="var(--red)" stroke-width="12"
-                stroke-dasharray="118 71" stroke-dashoffset="23" stroke-linecap="round"/>
-            </svg>
-            <div class="ov-donut-label">77%</div>
-          </div>
-          <div class="ov-coverage-stats">
-            <div class="ov-cov-item"><span class="ov-cov-dot" style="background:var(--red)"></span><strong>124</strong> sessions received reviews</div>
-            <div class="ov-cov-item"><span class="ov-cov-dot" style="background:var(--gray-light)"></span><strong>38</strong> sessions have no reviews yet</div>
-            <div class="ov-cov-item"><span class="ov-cov-dot" style="background:#F9A825"></span><strong>21</strong> sessions presented multiple times</div>
-            <div class="ov-cov-item"><span class="ov-cov-dot" style="background:#1E2D4E"></span><strong>32</strong> unique room locations used</div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>
@@ -687,7 +665,7 @@ function cardHTML(s) {
       +'<div class="card-header"><div class="card-title">'+s.name+'</div>'
       +'<div class="card-right">'
       +'<div class="rating-badge" style="--badge-color:'+st.color+';--badge-bg:'+st.bg+';--badge-border:'+st.border+'">'
-      +'<span class="rating-label">Average</span><span class="rating-num">'+s.avgRating.toFixed(1)+'</span><span class="rating-label">Stars</span>'
+      +'<span class="rating-label">Average</span><span class="rating-num">'+s.avgRating.toFixed(1)+'</span><span class="rating-label">Rating</span>'
       +'</div></div></div>'
       +'<div class="stars">'+renderStars(s.avgRating)+'</div>'
       +'<div class="card-meta">'+multiTag+orgTag+stdTag+'</div>'
