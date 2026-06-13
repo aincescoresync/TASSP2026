@@ -714,7 +714,11 @@ function renderGrid() {
 }
 
 function applyFilter() {
-  switchTab('sessions');
+  if(document.getElementById('panelSessions').style.display==='none'){
+    switchTab('sessions');
+  } else {
+    renderGrid();
+  }
 }
 
 document.getElementById('searchInput').addEventListener('input',function(e){gSearchQ=e.target.value;applyFilter();});
@@ -822,6 +826,8 @@ function toggleMobileFilters(){
 }
 
 function switchTab(tab){
+  // Preserve open aside state if staying on same tab
+  var openAside = document.querySelector('aside.mobile-open');
   document.getElementById('panelOverview').style.display=tab==='overview'?'block':'none';
   document.getElementById('panelSessions').style.display=tab==='sessions'?'grid':'none';
   document.getElementById('panelResponses').style.display=tab==='responses'?'grid':'none';
@@ -829,10 +835,16 @@ function switchTab(tab){
   document.getElementById('tabOverview').classList.toggle('active',tab==='overview');
   document.getElementById('tabSessions').classList.toggle('active',tab==='sessions');
   document.getElementById('tabResponses').classList.toggle('active',tab==='responses');
-  // close open sidebar on tab switch
-  document.querySelectorAll('aside.mobile-open').forEach(function(a){a.classList.remove('mobile-open');});
-  var lbl = document.getElementById('mobileFilterLabel');
-  if(lbl) lbl.textContent='Show Filters';
+  // Only close sidebar if switching to a different tab
+  var activePanel = tab==='sessions'?'panelSessions':tab==='responses'?'panelResponses':null;
+  if(openAside && activePanel && !document.getElementById(activePanel).contains(openAside)){
+    openAside.classList.remove('mobile-open');
+    var lbl=document.getElementById('mobileFilterLabel');
+    if(lbl) lbl.textContent='Show Filters';
+  } else if(openAside && activePanel) {
+    // re-open the aside in the newly visible panel
+    document.getElementById(activePanel).querySelector('aside').classList.add('mobile-open');
+  }
   if(tab==='sessions') renderGrid();
   if(tab==='overview') buildOverviewLists();
   if(tab==='responses') { buildRespSessionFilter(); renderResponses(); }
