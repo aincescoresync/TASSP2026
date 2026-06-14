@@ -314,24 +314,6 @@
       </div>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-label">Likelihood to Apply</div>
-      <select id="likelihoodFilter">
-        <option value="">All Levels</option>
-        <option value="Very Likely">Very Likely</option>
-        <option value="Likely">Likely</option>
-        <option value="Somewhat Likely">Somewhat Likely</option>
-        <option value="Unlikely">Unlikely</option>
-      </select>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">Has Takeaway</div>
-      <select id="takeawayFilter">
-        <option value="">All</option>
-        <option value="yes">With Takeaway</option>
-        <option value="no">No Takeaway</option>
-      </select>
-    </div>
-    <div class="sidebar-section">
       <div class="sidebar-label">Sort By</div>
       <select id="sortSelect">
         <option value="responses-desc">Most Responses</option>
@@ -725,8 +707,6 @@ function applyFilter() {
 document.getElementById('searchInput').addEventListener('input',function(e){gSearchQ=e.target.value;applyFilter();});
 document.getElementById('showFilter').addEventListener('change',function(e){gShowMode=e.target.value;applyFilter();});
 document.getElementById('standardFilter').addEventListener('change',function(e){gStandard=e.target.value;applyFilter();});
-document.getElementById('likelihoodFilter').addEventListener('change',function(e){gLikelihood=e.target.value;applyFilter();});
-document.getElementById('takeawayFilter').addEventListener('change',function(e){gTakeaway=e.target.value;applyFilter();});
 document.getElementById('sortSelect').addEventListener('change',function(e){gSortBy=e.target.value;applyFilter();});
 
 document.getElementById('ratingChips').addEventListener('click',function(e){
@@ -748,8 +728,6 @@ function resetAllFilters(){
   document.getElementById('searchInput').value='';
   document.getElementById('showFilter').value='all';
   document.getElementById('standardFilter').value='';
-  document.getElementById('likelihoodFilter').value='';
-  document.getElementById('takeawayFilter').value='';
   document.getElementById('sortSelect').value='responses-desc';
   document.querySelectorAll('#ratingChips .chip').forEach(function(c,i){c.classList.toggle('active',i===0);});
   renderGrid();
