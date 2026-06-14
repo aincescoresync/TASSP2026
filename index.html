@@ -655,7 +655,7 @@ function multiBadge(s) {
 
 function cardHTML(s) {
   var st=getRatingStyle(s.avgRating);
-  var stdTag=(s.standards&&s.standards.trim())?'<span class="meta-tag">'+s.standards.split(',')[0].trim()+'</span>':'';
+  var stdTag='';
   var desc=s.description?'<div class="card-desc">'+s.description+'</div>':'<div class="card-desc" style="flex:1;"></div>';
   var orgTag=(s.org&&s.org.trim())?'<span class="meta-tag">'+s.org.trim()+'</span>':'';
   var multiTag=s.presentedCount>1?'<span class="meta-tag" style="color:#E65100;border-color:#F9A825;background:#FFF8E1;">'+s.presentedCount+'&times; presented</span>':'';
