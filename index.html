@@ -177,7 +177,8 @@
     .layout > main { padding-bottom: 16px; }
   }
   .ov-stats-row { display: flex; gap: 14px; margin-bottom: 24px; flex-wrap: wrap; }
-  .ov-stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; flex: 1; min-width: 140px; display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
+  .ov-stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; flex: 1; min-width: 140px; display: flex; flex-direction: column; align-items: flex-start; gap: 0; opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+  .ov-stat-card.ov-visible { opacity: 1; transform: translateY(0); }
   .ov-stat-hero { border-top: 3px solid var(--red); }
   .ov-stat-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; flex-shrink: 0; }
   .ov-stat-num { font-size: 30px; font-weight: 700; color: var(--charcoal); line-height: 1; }
@@ -186,7 +187,10 @@
 
   .ov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
   .ov-col { display: flex; flex-direction: column; gap: 20px; }
-  .ov-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; }
+  .ov-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+  .ov-card.ov-visible { opacity: 1; transform: translateY(0); }
+  .ov-summary-block { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+  .ov-summary-block.ov-visible { opacity: 1; transform: translateY(0); }
   .ov-card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gray-mid); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
   .ov-card-title::after { content:''; flex:1; height:1px; background:var(--border); }
   .ov-card-title-sub { font-size: 10px; font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--gray-mid); }
@@ -195,7 +199,7 @@
   .ov-bar-row { display: flex; align-items: center; gap: 10px; }
   .ov-bar-label { font-size: 12px; color: var(--gray-dark); width: 110px; flex-shrink: 0; }
   .ov-bar-track { flex: 1; height: 10px; background: var(--gray-bg); border-radius: 2px; overflow: hidden; }
-  .ov-bar-fill { height: 100%; border-radius: 2px; transition: width .5s ease; }
+  .ov-bar-fill { height: 100%; border-radius: 2px; width: 0%; transition: width .9s cubic-bezier(.4,0,.2,1); }
   .ov-bar-pct { font-size: 12px; font-weight: 700; color: var(--gray-dark); width: 80px; text-align: right; white-space: nowrap; }
   .ov-bar-count { font-weight: 400; color: var(--gray-mid); }
   .ov-callout { background: var(--gray-bg); border-left: 3px solid var(--green); border-radius: var(--radius); padding: 9px 12px; font-size: 12px; color: var(--gray-dark); margin-top: 14px; line-height: 1.5; }
@@ -441,6 +445,10 @@
     </div>
   </div>
 
+  <div class="ov-summary-block" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px 28px;margin-bottom:24px;line-height:1.8;font-size:13.5px;color:var(--gray-dark);">
+    The 2026 TASSP Summer Workshop generated <strong><span class="stat-counter" data-target="594">0</span> survey responses</strong> across <strong><span class="stat-counter" data-target="124">0</span> of 162 concurrent and power sessions</strong>, reflecting strong attendee engagement throughout the three-day conference. Sessions earned an overall average rating of <strong><span class="stat-counter" data-target="4.52" data-decimal="2">0</span> out of 5.0</strong>, with <span class="stat-counter" data-target="29">0</span> sessions receiving a perfect 5.0 from multiple respondents. Attendee confidence in applying what they learned was notably high — <strong><span class="stat-counter" data-target="87">0</span>% of respondents indicated they were Likely or Very Likely to apply</strong> session content in their work. Together, these results indicate that the 2026 Summer Workshop delivered meaningful, applicable professional learning across a diverse range of campus leadership topics.
+  </div>
+
   <div class="ov-grid">
 
     <!-- Left column -->
@@ -452,27 +460,27 @@
         <div class="ov-chart-bars">
           <div class="ov-bar-row">
             <span class="ov-bar-label">★★★★★</span>
-            <div class="ov-bar-track"><div class="ov-bar-fill" style="width:65%;background:#2E7D32"></div></div>
+            <div class="ov-bar-track"><div class="ov-bar-fill" data-width="65%" style="background:#2E7D32"></div></div>
             <span class="ov-bar-pct">65% <span class="ov-bar-count">(389)</span></span>
           </div>
           <div class="ov-bar-row">
             <span class="ov-bar-label">★★★★</span>
-            <div class="ov-bar-track"><div class="ov-bar-fill" style="width:30%;background:#B45309"></div></div>
+            <div class="ov-bar-track"><div class="ov-bar-fill" data-width="30%" style="background:#B45309"></div></div>
             <span class="ov-bar-pct">30% <span class="ov-bar-count">(176)</span></span>
           </div>
           <div class="ov-bar-row">
             <span class="ov-bar-label">★★★</span>
-            <div class="ov-bar-track"><div class="ov-bar-fill" style="width:3%;background:#767676"></div></div>
+            <div class="ov-bar-track"><div class="ov-bar-fill" data-width="3%" style="background:#767676"></div></div>
             <span class="ov-bar-pct">3% <span class="ov-bar-count">(19)</span></span>
           </div>
           <div class="ov-bar-row">
             <span class="ov-bar-label">★★</span>
-            <div class="ov-bar-track"><div class="ov-bar-fill" style="width:0%;background:#D1D3D4"></div></div>
+            <div class="ov-bar-track"><div class="ov-bar-fill" data-width="0%" style="background:#D1D3D4"></div></div>
             <span class="ov-bar-pct">0%</span>
           </div>
           <div class="ov-bar-row">
             <span class="ov-bar-label">★</span>
-            <div class="ov-bar-track"><div class="ov-bar-fill" style="width:2%;background:#BE1E2D"></div></div>
+            <div class="ov-bar-track"><div class="ov-bar-fill" data-width="2%" style="background:#BE1E2D"></div></div>
             <span class="ov-bar-pct">2% <span class="ov-bar-count">(10)</span></span>
           </div>
         </div>
@@ -484,22 +492,22 @@
         <div class="ov-chart-bars">
           <div class="ov-bar-row">
             <span class="ov-bar-label" style="font-weight:600;color:var(--charcoal)">Very Likely</span>
-            <div class="ov-bar-track"><div class="ov-bar-fill" style="width:70%;background:#2E7D32"></div></div>
+            <div class="ov-bar-track"><div class="ov-bar-fill" data-width="70%" style="background:#2E7D32"></div></div>
             <span class="ov-bar-pct">70% <span class="ov-bar-count">(418)</span></span>
           </div>
           <div class="ov-bar-row">
             <span class="ov-bar-label">Likely</span>
-            <div class="ov-bar-track"><div class="ov-bar-fill" style="width:17%;background:#66BB6A"></div></div>
+            <div class="ov-bar-track"><div class="ov-bar-fill" data-width="17%" style="background:#66BB6A"></div></div>
             <span class="ov-bar-pct">17% <span class="ov-bar-count">(101)</span></span>
           </div>
           <div class="ov-bar-row">
             <span class="ov-bar-label">Somewhat Likely</span>
-            <div class="ov-bar-track"><div class="ov-bar-fill" style="width:8%;background:#D97706"></div></div>
+            <div class="ov-bar-track"><div class="ov-bar-fill" data-width="8%" style="background:#D97706"></div></div>
             <span class="ov-bar-pct">8% <span class="ov-bar-count">(50)</span></span>
           </div>
           <div class="ov-bar-row">
             <span class="ov-bar-label">Unlikely</span>
-            <div class="ov-bar-track"><div class="ov-bar-fill" style="width:4%;background:#BE1E2D"></div></div>
+            <div class="ov-bar-track"><div class="ov-bar-fill" data-width="4%" style="background:#BE1E2D"></div></div>
             <span class="ov-bar-pct">4% <span class="ov-bar-count">(25)</span></span>
           </div>
         </div>
@@ -951,6 +959,63 @@ document.getElementById('respRatingChips').addEventListener('click',function(e){
   }
 });
 
+function animateOverview(){
+  // Reset all animated elements
+  document.querySelectorAll('.ov-stat-card, .ov-card, .ov-summary-block').forEach(function(el){
+    el.classList.remove('ov-visible');
+  });
+  document.querySelectorAll('.ov-bar-fill').forEach(function(el){
+    el.style.width = '0%';
+  });
+  document.querySelectorAll('.stat-counter').forEach(function(el){
+    var decimals = parseInt(el.dataset.decimal || '0');
+    el.textContent = decimals ? '0.00' : '0';
+  });
+
+  // Stagger fade-in: summary block, then stat cards, then grid cards
+  var delay = 0;
+  var summaryBlock = document.querySelector('.ov-summary-block');
+  if(summaryBlock) setTimeout(function(){ summaryBlock.classList.add('ov-visible'); }, delay);
+  delay += 150;
+
+  document.querySelectorAll('.ov-stat-card').forEach(function(el, i){
+    setTimeout(function(){ el.classList.add('ov-visible'); }, delay + i * 80);
+  });
+  delay += 500;
+
+  document.querySelectorAll('.ov-card').forEach(function(el, i){
+    setTimeout(function(){ el.classList.add('ov-visible'); }, delay + i * 100);
+  });
+
+  // Animate bar fills after cards appear
+  setTimeout(function(){
+    document.querySelectorAll('.ov-bar-fill').forEach(function(el){
+      var target = el.dataset.width;
+      if(target) el.style.width = target;
+    });
+  }, delay + 300);
+
+  // Animate counters
+  setTimeout(function(){
+    document.querySelectorAll('.stat-counter').forEach(function(el){
+      var target = parseFloat(el.dataset.target);
+      var decimals = parseInt(el.dataset.decimal || '0');
+      var duration = 1400;
+      var start = null;
+      function step(timestamp){
+        if(!start) start = timestamp;
+        var progress = Math.min((timestamp - start) / duration, 1);
+        var ease = 1 - Math.pow(1 - progress, 3);
+        var current = ease * target;
+        el.textContent = decimals ? current.toFixed(decimals) : Math.floor(current).toLocaleString();
+        if(progress < 1) requestAnimationFrame(step);
+        else el.textContent = decimals ? target.toFixed(decimals) : target.toLocaleString();
+      }
+      requestAnimationFrame(step);
+    });
+  }, 100);
+}
+
 function buildOverviewLists(){
   var qualified=DATA.filter(function(s){return s.hasReviews&&s.responseCount>=3;});
   qualified.sort(function(a,b){return (b.avgRating-a.avgRating)||(b.responseCount-a.responseCount);});
@@ -982,6 +1047,7 @@ function buildOverviewLists(){
       if(row) openModal(decodeURIComponent(row.dataset.name));
     };
   });
+  animateOverview();
 }
 
 // Init — build overview first (it's visible), then pre-render sessions in background
