@@ -329,15 +329,13 @@
     </div>
     <div class="results-count" id="resultsCount"></div>
     <button onclick="resetAllFilters()" style="width:100%;margin-top:8px;padding:9px;background:var(--charcoal);color:var(--white);border:none;border-radius:var(--radius);font-size:12px;font-weight:700;font-family:inherit;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .15s;">&#8635; Reset Filters</button>
+    <button onclick="printAllSessions()" style="width:100%;margin-top:8px;padding:9px;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--red);color:var(--white);border:none;border-radius:var(--radius);font-size:12px;font-weight:700;font-family:inherit;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .15s;">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Export All PDF
+    </button>
   </aside>
 
   <main>
-    <div style="display:flex;justify-content:flex-end;padding:16px 0 0 0;">
-      <button onclick="printAllSessions()" style="display:inline-flex;align-items:center;gap:6px;background:var(--charcoal);color:var(--white);border:none;border-radius:var(--radius);padding:7px 14px;font-size:11px;font-weight:700;font-family:inherit;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .15s;">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Print All Sessions
-      </button>
-    </div>
     <div id="mainContent"></div>
   </main>
 </div>
@@ -603,7 +601,7 @@
         </div>
         <div class="modal-meta-row" id="modalMeta"></div>
         <div style="margin-top:12px;">
-          <button onclick="exportSessionPDF()" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:var(--radius);padding:5px 14px;font-size:11px;font-weight:700;color:var(--white);font-family:inherit;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .15s;">
+          <button onclick="exportSessionPDF()" style="background:var(--red);border:none;border-radius:var(--radius);padding:7px 14px;font-size:11px;font-weight:700;color:var(--white);font-family:inherit;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .15s;">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Export PDF
           </button>
